@@ -1,0 +1,9 @@
+﻿model/venv/
+venv/
+__pycache__/
+*.pyc
+model/test_run/
+model/test_run_2/
+*.pt
+*.pth
+.env
