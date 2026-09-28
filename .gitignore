@@ -7,3 +7,5 @@ model/test_run_2/
 *.pt
 *.pth
 .env
+model/data/
+model/Davis_dataset.csv
