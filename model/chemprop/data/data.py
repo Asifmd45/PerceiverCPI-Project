@@ -220,24 +220,7 @@ class MoleculeDatapoint:
         :param targets: A list of floats containing the targets.
         """
         self.targets = targets
-    def add_features(self) -> List[np.ndarray]:
-        """
-        Returns the features associated with each molecule (if they exist).
 
-        :return: A list of 1D numpy arrays containing the features for each molecule or None if there are no features.
-        """
-        if len(self._data) == 0 or self._data[0].features is None:
-            return None
-
-        a = []
-        for d in self._data:
-
-            features_vec = AllChem.GetMorganFingerprintAsBitVect(mol, radius, nBits=num_bits)
-            features = np.zeros((1,))
-            DataStructs.ConvertToNumpyArray(features_vec, features)
-            a.append(features)
-
-        return a
     def reset_features_and_targets(self) -> None:
         """Resets the features (atom, bond, and molecule) and targets to their raw values."""
         self.features, self.targets = self.raw_features, self.raw_targets
@@ -266,7 +249,7 @@ class MoleculeDataset(Dataset):
         :return: A list of SMILES or a list of lists of SMILES, depending on :code:`flatten`.
         """
         if flatten:
-            return [print(smiles) for d in self._data for smiles in d.smiles]
+            return [smiles for d in self._data for smiles in d.smiles]
 
         return [d.smiles for d in self._data]
 
